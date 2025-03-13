@@ -1,11 +1,13 @@
 "use client";
 
-import LandingPage from "@/modules/marketing/landing-page";
+import Features from "@/modules/marketing/features";
+import HeroSection from "@/modules/marketing/hero-section";
 
 export default function Home() {
     return (
         <div>
-            <LandingPage />
+            <HeroSection />
+            <Features />
         </div>
     );
 }

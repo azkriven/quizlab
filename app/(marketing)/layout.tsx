@@ -1,17 +1,16 @@
 import Navbar from "@/modules/marketing/navbar";
-import Footer from "@/modules/marketing/footer";
 import "@/app/globals.css";
+import FooterSection from "@/components/footer";
 
 export default function MarketingLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <Navbar />
-      <main className="flex-grow">{children}</main>
-      <Footer />
-    </div>
-  );
+    return (
+        <div className="flex flex-col min-h-screen bg-background">
+            <main className="flex-grow">{children}</main>
+            <FooterSection />
+        </div>
+    );
 }
