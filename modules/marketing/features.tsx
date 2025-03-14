@@ -14,8 +14,7 @@ export default function Features() {
                         Built to cover your needs
                     </h2>
                     <p className="mt-4">
-                        Libero sapiente aliquam quibusdam aspernatur,
-                        praesentium iusto repellendus.
+                        Unleash the power of AI to generate quizzes, flashcards, and more.
                     </p>
                 </div>
                 <div className="@min-4xl:max-w-full @min-4xl:grid-cols-3 mx-auto mt-8 grid max-w-sm gap-6 *:text-center md:mt-16">
@@ -25,13 +24,12 @@ export default function Features() {
                                 <Zap className="size-6" aria-hidden />
                             </CardDecorator>
 
-                            <h3 className="mt-6 font-medium">Customizable</h3>
+                            <h3 className="mt-6 font-medium">AI-Powered Generation</h3>
                         </CardHeader>
 
                         <CardContent>
                             <p className="text-sm">
-                                Extensive customization options, allowing you to
-                                tailor every aspect to meet your specific needs.
+                                Generate quizzes, flashcards, and other learning materials with the help of AI.
                             </p>
                         </CardContent>
                     </Card>
@@ -43,15 +41,13 @@ export default function Features() {
                             </CardDecorator>
 
                             <h3 className="mt-6 font-medium">
-                                You have full control
+                                Customizable Content
                             </h3>
                         </CardHeader>
 
                         <CardContent>
                             <p className="mt-3 text-sm">
-                                From design elements to functionality, you have
-                                complete control to create a unique and
-                                personalized experience.
+                                Tailor the generated content to your specific needs and learning objectives.
                             </p>
                         </CardContent>
                     </Card>
@@ -62,13 +58,12 @@ export default function Features() {
                                 <Sparkles className="size-6" aria-hidden />
                             </CardDecorator>
 
-                            <h3 className="mt-6 font-medium">Powered By AI</h3>
+                            <h3 className="mt-6 font-medium">Lab Assistant for Learning</h3>
                         </CardHeader>
 
                         <CardContent>
                             <p className="mt-3 text-sm">
-                                Elements to functionality, you have complete
-                                control to create a unique experience.
+                                Your AI lab assistant is ready to help you create engaging and effective learning experiences.
                             </p>
                         </CardContent>
                     </Card>

@@ -7,10 +7,10 @@ import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 
 const menuItems = [
+    { name: "Flashcard Generator", href: "/flashcard" },
+    { name: "Quiz Generator", href: "/quiz" },
     { name: "Features", href: "#features" },
-    { name: "Solution", href: "#link" },
-    { name: "Pricing", href: "#link" },
-    { name: "About", href: "#link" },
+    { name: "About", href: "#about" },
 ];
 
 export const HeroHeader = () => {
@@ -92,7 +92,7 @@ export const HeroHeader = () => {
                                 </ul>
                             </div>
                             <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                                <Button
+                                {/* <Button
                                     asChild
                                     variant="outline"
                                     size="sm"
@@ -110,13 +110,14 @@ export const HeroHeader = () => {
                                     <Link href="#">
                                         <span>Sign Up</span>
                                     </Link>
-                                </Button>
+                                </Button> */}
                                 <Button
                                     asChild
                                     size="sm"
-                                    className={cn(
-                                        isScrolled ? "lg:inline-flex" : "hidden"
-                                    )}
+                                    className={
+                                        cn()
+                                        // isScrolled ? "lg:inline-flex" : "hidden"
+                                    }
                                 >
                                     <Link href="#">
                                         <span>Get Strated</span>

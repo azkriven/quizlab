@@ -1,3 +1,9 @@
+import DashboardPage from "@/modules/dashboard";
+
 export default function Dashboard() {
-    return <div>Dashboard</div>;
+    return (
+        <div>
+            <DashboardPage />
+        </div>
+    );
 }
