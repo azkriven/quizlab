@@ -1,3 +1,9 @@
+import QuizPage from "@/modules/quiz";
+
 export default function Quiz() {
-    return <div>Quiz</div>;
+    return (
+        <div>
+            <QuizPage />
+        </div>
+    );
 }
