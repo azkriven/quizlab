@@ -1,11 +1,9 @@
-import React from "react";
-import Link from "next/link";
-import { ArrowRight, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { TextEffect } from "@/components/motion-primitives/text-effect";
 import { AnimatedGroup } from "@/components/motion-primitives/animated-group";
-import { HeroHeader } from "@/modules/marketing/hero5-header";
+import { TextEffect } from "@/components/motion-primitives/text-effect";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const transitionVariants = {
     item: {
@@ -30,7 +28,6 @@ const transitionVariants = {
 export default function HeroSection() {
     return (
         <>
-            <HeroHeader />
             <main className="overflow-hidden">
                 <div
                     aria-hidden
@@ -82,7 +79,7 @@ export default function HeroSection() {
                             <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
                                 <AnimatedGroup variants={transitionVariants}>
                                     <Link
-                                        href="#link"
+                                        href="/quiz"
                                         className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
                                     >
                                         <span className="text-foreground text-lg">
@@ -149,9 +146,9 @@ export default function HeroSection() {
                                             size="lg"
                                             className="rounded-xl px-5 text-base"
                                         >
-                                            <Link href="#link">
+                                            <Link href="/quiz">
                                                 <span className="text-nowrap">
-                                                    Start Building
+                                                    Try it now!
                                                 </span>
                                             </Link>
                                         </Button>

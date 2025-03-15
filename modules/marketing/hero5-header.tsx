@@ -119,7 +119,7 @@ export const HeroHeader = () => {
                                         // isScrolled ? "lg:inline-flex" : "hidden"
                                     }
                                 >
-                                    <Link href="#">
+                                    <Link href="/quiz">
                                         <span>Get Strated</span>
                                     </Link>
                                 </Button>

@@ -1,11 +1,7 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
-import { experimental_useObject } from "ai/react";
-import { z } from "zod";
-import { questionsSchema } from "@/lib/quiz-schema";
-import { toast } from "sonner";
-import { AnimatePresence, motion } from "motion/react";
+import { generateQuizTitle } from "@/app/quiz/actions";
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -14,11 +10,15 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { FileUpIcon, Loader2Icon, PlusIcon } from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { generateQuizTitle } from "@/app/quiz/actions";
+import { questionsSchema } from "@/lib/quiz-schema";
+import { experimental_useObject } from "ai/react";
+import { FileUpIcon, Loader2Icon, PlusIcon } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import Link from "next/link";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { toast } from "sonner";
+import { z } from "zod";
 import Questions from "./questions";
 
 export default function QuizPage() {
@@ -113,7 +113,7 @@ export default function QuizPage() {
 
     return (
         <div
-            className="min-h-[100dvh] w-full flex justify-center"
+            className="w-full flex flex-col items-center justify-center"
             onDragOver={(e) => {
                 e.preventDefault();
                 setIsDragging(true);
@@ -145,106 +145,110 @@ export default function QuizPage() {
                     </motion.div>
                 )}
             </AnimatePresence>
-            <Card className="w-full max-w-md h-full border-0 sm:border sm:h-fit mt-12">
-                <CardHeader className="text-center space-y-6">
-                    <div className="mx-auto flex items-center justify-center space-x-2 text-muted-foreground">
-                        <div className="rounded-full bg-primary/10 p-2">
-                            <FileUpIcon className="h-6 w-6" />
+            <div className="container px-4 md:px-6 max-w-md">
+                <Card className="w-full h-full border-0 sm:border sm:h-fit mt-12">
+                    <CardHeader className="text-center space-y-6">
+                        <div className="mx-auto flex items-center justify-center space-x-2 text-muted-foreground">
+                            <div className="rounded-full bg-primary/10 p-2">
+                                <FileUpIcon className="h-6 w-6" />
+                            </div>
+                            <PlusIcon className="h-4 w-4" />
+                            <div className="rounded-full bg-primary/10 p-2">
+                                <Loader2Icon className="h-6 w-6" />
+                            </div>
                         </div>
-                        <PlusIcon className="h-4 w-4" />
-                        <div className="rounded-full bg-primary/10 p-2">
-                            <Loader2Icon className="h-6 w-6" />
+                        <div className="space-y-2">
+                            <CardTitle className="text-2xl font-bold">
+                                PDF Quiz Generator
+                            </CardTitle>
+                            <CardDescription className="text-base">
+                                Upload a PDF to generate an interactive quiz
+                                based on its content using the{" "}
+                                <Link href="https://sdk.vercel.ai">AI SDK</Link>{" "}
+                                and{" "}
+                                <Link href="https://sdk.vercel.ai/providers/ai-sdk-providers/google-generative-ai">
+                                    Google&apos;s Gemini Pro
+                                </Link>
+                                .
+                            </CardDescription>
                         </div>
-                    </div>
-                    <div className="space-y-2">
-                        <CardTitle className="text-2xl font-bold">
-                            PDF Quiz Generator
-                        </CardTitle>
-                        <CardDescription className="text-base">
-                            Upload a PDF to generate an interactive quiz based
-                            on its content using the{" "}
-                            <Link href="https://sdk.vercel.ai">AI SDK</Link> and{" "}
-                            <Link href="https://sdk.vercel.ai/providers/ai-sdk-providers/google-generative-ai">
-                                Google&apos;s Gemini Pro
-                            </Link>
-                            .
-                        </CardDescription>
-                    </div>
-                </CardHeader>
+                    </CardHeader>
 
-                <CardContent>
-                    <form
-                        onSubmit={handleSubmitWithFiles}
-                        className="space-y-4"
-                    >
-                        <div
-                            className={`relative flex flex-col items-center justify-center border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 transition-colors hover:border-muted-foreground/50`}
+                    <CardContent>
+                        <form
+                            onSubmit={handleSubmitWithFiles}
+                            className="space-y-4"
                         >
-                            <input
-                                type="file"
-                                onChange={handleFileChange}
-                                accept="application/pdf"
-                                className="absolute inset-0 opacity-0 cursor-pointer"
-                            />
-                            <FileUpIcon className="h-8 w-8 mb-2 text-muted-foreground" />
-                            <p className="text-sm text-muted-foreground text-center">
-                                {files.length > 0 ? (
-                                    <span className="font-medium text-foreground">
-                                        {files[0].name}
+                            <div
+                                className={`relative flex flex-col items-center justify-center border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 transition-colors hover:border-muted-foreground/50`}
+                            >
+                                <input
+                                    type="file"
+                                    onChange={handleFileChange}
+                                    accept="application/pdf"
+                                    className="absolute inset-0 opacity-0 cursor-pointer"
+                                />
+                                <FileUpIcon className="h-8 w-8 mb-2 text-muted-foreground" />
+                                <p className="text-sm text-muted-foreground text-center">
+                                    {files.length > 0 ? (
+                                        <span className="font-medium text-foreground">
+                                            {files[0].name}
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            Drop your PDF here or click to
+                                            browse.
+                                        </span>
+                                    )}
+                                </p>
+                            </div>
+                            <Button
+                                type="submit"
+                                className="w-full"
+                                disabled={files.length === 0}
+                            >
+                                {isLoading ? (
+                                    <span className="flex items-center space-x-2">
+                                        <Loader2Icon className="h-4 w-4 animate-spin" />
+                                        <span>Generating Quiz...</span>
                                     </span>
                                 ) : (
-                                    <span>
-                                        Drop your PDF here or click to browse.
-                                    </span>
+                                    "Generate Quiz"
                                 )}
-                            </p>
-                        </div>
-                        <Button
-                            type="submit"
-                            className="w-full"
-                            disabled={files.length === 0}
-                        >
-                            {isLoading ? (
-                                <span className="flex items-center space-x-2">
-                                    <Loader2Icon className="h-4 w-4 animate-spin" />
-                                    <span>Generating Quiz...</span>
-                                </span>
-                            ) : (
-                                "Generate Quiz"
-                            )}
-                        </Button>
-                    </form>
-                </CardContent>
-                {isLoading && (
-                    <CardFooter className="flex flex-col space-y-4">
-                        <div className="w-full space-y-1">
-                            <div className="flex justify-between text-sm text-muted-foreground">
-                                <span>Progress</span>
-                                <span>{Math.round(progress)}%</span>
+                            </Button>
+                        </form>
+                    </CardContent>
+                    {isLoading && (
+                        <CardFooter className="flex flex-col space-y-4">
+                            <div className="w-full space-y-1">
+                                <div className="flex justify-between text-sm text-muted-foreground">
+                                    <span>Progress</span>
+                                    <span>{Math.round(progress)}%</span>
+                                </div>
+                                <Progress value={progress} className="h-2" />
                             </div>
-                            <Progress value={progress} className="h-2" />
-                        </div>
-                        <div className="w-full space-y-2">
-                            <div className="grid grid-cols-6 sm:grid-cols-4 items-center space-x-2 text-sm">
-                                <div
-                                    className={`h-2 w-2 rounded-full ${
-                                        isLoading
-                                            ? "bg-yellow-500/50 animate-pulse"
-                                            : "bg-muted"
-                                    }`}
-                                />
-                                <span className="text-muted-foreground text-center col-span-4 sm:col-span-2">
-                                    {partialQuestions
-                                        ? `Generating question ${
-                                              partialQuestions.length + 1
-                                          } of 4`
-                                        : "Analyzing PDF content"}
-                                </span>
+                            <div className="w-full space-y-2">
+                                <div className="grid grid-cols-6 sm:grid-cols-4 items-center space-x-2 text-sm">
+                                    <div
+                                        className={`h-2 w-2 rounded-full ${
+                                            isLoading
+                                                ? "bg-yellow-500/50 animate-pulse"
+                                                : "bg-muted"
+                                        }`}
+                                    />
+                                    <span className="text-muted-foreground text-center col-span-4 sm:col-span-2">
+                                        {partialQuestions
+                                            ? `Generating question ${
+                                                  partialQuestions.length + 1
+                                              } of 4`
+                                            : "Analyzing PDF content"}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    </CardFooter>
-                )}
-            </Card>
+                        </CardFooter>
+                    )}
+                </Card>
+            </div>
         </div>
     );
 }
